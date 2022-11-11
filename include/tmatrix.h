@@ -8,6 +8,7 @@
 #define __TDynamicMatrix_H__
 
 #include <iostream>
+#include<cassert>
 
 using namespace std;
 
@@ -31,7 +32,7 @@ public:
   }
   TDynamicVector(T* arr, size_t s) : sz(s)
   {
-    //assert(arr != nullptr && "TDynamicVector ctor requires non-nullptr arg");
+    assert(arr != nullptr && "TDynamicVector ctor requires non-nullptr arg");
     pMem = new T[sz];
     std::copy(arr, arr + sz, pMem);
   }
@@ -153,7 +154,7 @@ public:
         tmp.pMem[i] = pMem[i] - v.pMem[i];
     return tmp;
   }
-  T operator*(const TDynamicVector& v) noexcept(noexcept(T()))
+  T operator*(const TDynamicVector& v) // noexcept(noexcept(T()))
   {
     if (sz != v.sz)
         throw exception("Vectors must have the same size for vector operations!!!");
@@ -306,12 +307,11 @@ public:
   {
     for (size_t i = 0; i < v.sz; i++)
     {
-        ostr << "|" << "   ";
         for (size_t j = 0; j < v.sz; j++)
         {
             ostr << v[i][j]<<"\t";
         }
-        ostr << "|" << endl;
+        ostr << endl;
     }
     return ostr;
   }

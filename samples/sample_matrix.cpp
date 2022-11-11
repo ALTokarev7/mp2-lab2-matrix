@@ -7,16 +7,39 @@
 #include <iostream>
 #include "tmatrix.h"
 //---------------------------------------------------------------------------
-void matAddMat()
+
+void autoGeneration(TDynamicMatrix<int>& m)
+{
+	int LO = -5;
+	int HI = 5;
+
+	for (int i = 0; i < m.size(); i++)
+	{
+		for (int j = 0; j < m.size(); j++)
+		{
+			m[i][j] = LO + (rand() / (RAND_MAX / (HI - LO)));
+		}
+	}
+}
+
+void matAddMat(size_t genType)
 {
 	cout << "Введите размерность матрицы: ";
 	size_t sz = 0;
 	cin >> sz;
 	TDynamicMatrix<int> a(sz), b(sz), c(sz);
-	cout << "Введите первую матрицу: ";
-	cin >> a;
-	cout << "Введите вторую матрицу: ";
-	cin >> b;
+	if (genType == 2) 
+	{
+		cout << "Введите первую матрицу: ";
+		cin >> a;
+		cout << "Введите вторую матрицу: ";
+		cin >> b;
+	}
+	else
+	{
+		autoGeneration(a);
+		autoGeneration(b);
+	}
 	cout << a << endl;
 	cout << "\t + " << "\n\n";
 	cout << b << endl;
@@ -24,17 +47,25 @@ void matAddMat()
 	c = a + b;
 	cout << c << endl;
 }
-void matMulScal()
+void matMulScal(size_t genType)
 {
 	cout << "Введите размерность матрицы: ";
 	size_t sz = 0;
 	cin >> sz;
 	TDynamicMatrix<int> a(sz), c(sz);
-	cout << "Введите первую матрицу: ";
-	cin >> a;
 	int num = 0;
-	cout << "Введите число: ";
-	cin >> num;
+	if (genType == 2)
+	{
+		cout << "Введите первую матрицу: ";
+		cin >> a;
+		cout << "Введите число: ";
+		cin >> num;
+	}
+	else
+	{
+		autoGeneration(a);
+		num = -5 + (rand() /(RAND_MAX / (10)));
+	}
 	cout << a << endl;
 	cout << "\t * " << "\n\n";
 	cout << "\t" << num << "\n\n";
@@ -42,16 +73,24 @@ void matMulScal()
 	c = a * num;
 	cout << c << endl;
 }
-void matMul()
+void matMul(size_t genType)
 {
 	cout << "Введите размерность матрицы: ";
 	size_t sz = 0;
 	cin >> sz;
 	TDynamicMatrix<int> a(sz), b(sz), c(sz);
-	cout << "Введите первую матрицу: ";
-	cin >> a;
-	cout << "Введите вторую матрицу: ";
-	cin >> b;
+	if (genType == 2)
+	{
+		cout << "Введите первую матрицу: ";
+		cin >> a;
+		cout << "Введите вторую матрицу: ";
+		cin >> b;
+	}
+	else
+	{
+		autoGeneration(a);
+		autoGeneration(b);
+	}
 	cout << a << endl;
 	cout << "\t * " << "\n\n";
 	cout << b << endl;
@@ -61,6 +100,8 @@ void matMul()
 }
 void main()
 {
+	srand(static_cast <unsigned> (time(0)));
+
 	setlocale(LC_ALL, "Russian");
 	cout << "Тестирование класс работы с матрицами"
 		<< endl;
@@ -68,19 +109,22 @@ void main()
 	cout << "1.Матрица * матрица" << endl;
 	cout << "2.Матрица + матрица" << endl;
 	cout << "3.Матрица * число" << endl;
-	
 	size_t choose = 0;
 	cin >> choose;
+	cout << "Нажмите 1 для автоматической генерации матриц." << endl;
+	cout << "Нажмите 2 для заполнения матриц с клавиатуры." << endl;
+	size_t genType = 0;
+	cin >> genType;
 	switch (choose)
 	{
 	case 1:
-		matMul();
+		matMul(genType);
 		break;
 	case 2:
-		matAddMat();
+		matAddMat(genType);
 		break;
 	case 3:
-		matMulScal();
+		matMulScal(genType);
 		break;
 	default:
 		cout << "Неверный номер!";
