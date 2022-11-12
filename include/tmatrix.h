@@ -26,7 +26,7 @@ protected:
 public:
   TDynamicVector(size_t size = 1) : sz(size)
   {
-    if (sz < 0 || sz > MAX_VECTOR_SIZE)
+    if (sz = 0 || sz > MAX_VECTOR_SIZE)
       throw out_of_range("Vector size should be greater than zero and lower than MAX_VECTOR_SIZE");
     pMem = new T[sz]();// {}; // У типа T д.б. констуктор по умолчанию
   }
@@ -196,7 +196,7 @@ class TDynamicMatrix : private TDynamicVector<TDynamicVector<T>>
 public:
   TDynamicMatrix(size_t s = 1) : TDynamicVector<TDynamicVector<T>>(s)
   {
-    if(sz < 0 || sz > MAX_MATRIX_SIZE)
+    if(sz = 0 || sz > MAX_MATRIX_SIZE)
         throw out_of_range("Matrix size should be greater than zero and lower than MAX_MATRIX_SIZE");
     for (size_t i = 0; i < sz; i++)
       pMem[i] = TDynamicVector<T>(sz);
