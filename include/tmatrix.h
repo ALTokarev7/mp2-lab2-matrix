@@ -26,7 +26,7 @@ protected:
 public:
   TDynamicVector(size_t size = 1) : sz(size)
   {
-    if (sz < 0 || sz > MAX_VECTOR_SIZE)
+    if (sz == 0 || sz > MAX_VECTOR_SIZE)
       throw out_of_range("Vector size should be greater than zero and lower than MAX_VECTOR_SIZE");
     pMem = new T[sz]();// {}; // У типа T д.б. констуктор по умолчанию
   }
@@ -81,13 +81,13 @@ public:
   // индексация с контролем
   T& at(size_t ind)
   {
-    if (ind < 0 || ind >= sz)
+    if (ind == 0 || ind >= sz)
         throw exception("Index can`t be negative or bigger then size!");
     return pMem[ind];
   }
   const T& at(size_t ind) const
   {
-    if (ind < 0 || ind >= sz)
+    if (ind == 0 || ind >= sz)
         throw exception("Index can`t be negative or bigger then size!");
     return pMem[ind];
   }
@@ -196,7 +196,7 @@ class TDynamicMatrix : private TDynamicVector<TDynamicVector<T>>
 public:
   TDynamicMatrix(size_t s = 1) : TDynamicVector<TDynamicVector<T>>(s)
   {
-    if(sz < 0 || sz > MAX_MATRIX_SIZE)
+    if(sz == 0 || sz > MAX_MATRIX_SIZE)
         throw out_of_range("Matrix size should be greater than zero and lower than MAX_MATRIX_SIZE");
     for (size_t i = 0; i < sz; i++)
       pMem[i] = TDynamicVector<T>(sz);
@@ -225,7 +225,7 @@ public:
 
   T& at(int row, int col)
   {
-    if(row < MAX_MATRIX_SIZE && col < MAX_MATRIX_SIZE && row > 0 && col > 0)
+    if(row < sz && col < sz && row >= 0 && col >= 0)
     {
         return pMem[row][col];
     }
@@ -234,7 +234,7 @@ public:
 
   const T& at(int row, int col) const
   {
-      if (row < MAX_MATRIX_SIZE && col < MAX_MATRIX_SIZE && row > 0 && col > 0)
+      if (row < sz && col < sz && row >= 0 && col >= 0)
       {
           return pMem[row][col];
       }
