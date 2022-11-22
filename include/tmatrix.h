@@ -81,13 +81,13 @@ public:
   // индексация с контролем
   T& at(size_t ind)
   {
-    if (ind == 0 || ind >= sz)
+    if (ind >= sz)
         throw exception("Index can`t be negative or bigger then size!");
     return pMem[ind];
   }
   const T& at(size_t ind) const
   {
-    if (ind == 0 || ind >= sz)
+    if (ind >= sz)
         throw exception("Index can`t be negative or bigger then size!");
     return pMem[ind];
   }
